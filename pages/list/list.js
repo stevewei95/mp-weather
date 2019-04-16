@@ -6,9 +6,9 @@ Page({
     city: '广州市'
   },
   onLoad(options) {
-    // this.setData({
-    //   city: options.city
-    // })
+    this.setData({
+      city: options.city
+    })
     this.getWeekWeather()
   },
   onPullDownRefresh() {
