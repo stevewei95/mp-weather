@@ -21,7 +21,9 @@ Page({
     nowTemp: '14°',
     nowWeather: '阴天',
     nowWeatherBackground: '',
-    hourlyWeather: []
+    hourlyWeather: [],
+    todayDate: '',
+    todayTemp: ''
   },
   onPullDownRefresh() {
     this.getNow(() => {
@@ -43,6 +45,7 @@ Page({
       success: res => {
         this.setNow(res)
         this.setHourlyWeather(res)
+        this.setToday(res)
       },
       complete: () => {
         callback && callback()
@@ -77,6 +80,19 @@ Page({
     hourlyWeather[0].time = '现在'
     this.setData({
       hourlyWeather
+    })
+  },
+  setToday(res) {
+    const { today } = res.data.result
+    const date = new Date()
+    this.setData({
+      todayTemp: `${today.minTemp}° - ${today.maxTemp}°`,
+      todayDate: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} 今天`
+    })
+  },
+  onTapDayWeather() {
+    wx.navigateTo({
+      url: '/pages/list/list'
     })
   }
 })
